@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd">
+	<jms:config name="JMS_Config" doc:name="JMS Config" doc:id="0d8996ec-e6df-4759-9503-e8eac9dc56f2" >
+		<jms:active-mq-connection username="admin" password="admin" >
+			<jms:caching-strategy >
+				<jms:no-caching />
+			</jms:caching-strategy>
+			<jms:factory-configuration brokerUrl="tcp://localhost:61616" />
+		</jms:active-mq-connection>
+	</jms:config>
+	<flow name="jms-flowFlow" doc:id="2e4e7140-0f18-48cf-9126-b3ce6716e84a" >
+		<jms:listener doc:name="On New Message" doc:id="b27ec42c-a814-425c-b960-883b0aa913a6" config-ref="JMS_Config" destination="qwf`Que-First" inboundContentType="application/json">
+			<jms:response outboundContentType="application/json" />
+		</jms:listener>
+		<logger level="INFO" doc:name="Logger" doc:id="79845f98-1e29-4ee4-aa81-219f3a37023a" message="#[payload]"/>
+	</flow>
+</mule>
